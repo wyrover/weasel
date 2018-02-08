@@ -8,6 +8,7 @@
 #include <winsparkle.h>
 #include <functional>
 #include <memory>
+#include <ShellAPI.h>
 
 class WeaselServerApp {
 public:
