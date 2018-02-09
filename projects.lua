@@ -154,6 +154,204 @@ workspace(path.getname(os.realpath(".")))
             }
             has_stdafx("WeaselSetup", ".")
 
+        project "WeaselDeployer"          
+            kind "WindowedApp"
+            --defines { "PTW32_STATIC_LIB" }
+            vpaths 
+            { 
+                ["Header Files"] = {"**.h", "**.hpp"},
+                ["Source Files"] = {"**.c", "**.cpp", "**.cc"},
+                ["Resource Files"] = {"**.rc", "**.rc2"}
+            }
+            files
+            {              
+                
+                "WeaselDeployer/**.h",
+                "WeaselDeployer/**.cpp",
+                "WeaselDeployer/**.rc",
+                
+                
+                
+            }
+            removefiles
+            {     
+            
+            }
+            includedirs
+            {               
+                "include",
+                "librime/src",
+                
+            }  
+            links
+            {
+                "rime.lib",
+                "WeaselIPC",
+                "RimeWithWeasel"
+            }
+            has_stdafx("WeaselDeployer", ".")
+
+    group "test"
+
+        project "TestWeaselIPC"          
+            kind "ConsoleApp"
+            --defines { "PTW32_STATIC_LIB" }
+            vpaths 
+            { 
+                ["Header Files"] = {"**.h", "**.hpp"},
+                ["Source Files"] = {"**.c", "**.cpp", "**.cc"},
+                ["Resource Files"] = {"**.rc", "**.rc2"}
+            }
+            files
+            {              
+                
+                "test/TestWeaselIPC/**.h",
+                "test/TestWeaselIPC/**.cpp",
+                "test/TestWeaselIPC/**.rc",
+                
+                
+                
+            }
+            removefiles
+            {     
+            
+            }
+            includedirs
+            {               
+                "include",
+                
+                
+            }  
+            links
+            {
+                
+                "WeaselIPC",
+                "WeaselIPCServer"
+                
+            }
+            has_stdafx("TestWeaselIPC", "test")
+
+        project "TestResponseParser"          
+            kind "ConsoleApp"
+            --defines { "PTW32_STATIC_LIB" }
+            vpaths 
+            { 
+                ["Header Files"] = {"**.h", "**.hpp"},
+                ["Source Files"] = {"**.c", "**.cpp", "**.cc"},
+                ["Resource Files"] = {"**.rc", "**.rc2"}
+            }
+            files
+            {              
+                
+                "test/TestResponseParser/**.h",
+                "test/TestResponseParser/**.cpp",
+                "test/TestResponseParser/**.rc",
+                
+                
+                
+            }
+            removefiles
+            {     
+            
+            }
+            includedirs
+            {               
+                "include",
+                "librime/src",
+                
+            }  
+            links
+            {
+                
+                "rime.lib",
+                "RimeWithWeasel",
+                "WeaselIPC",
+               
+                
+            }
+            has_stdafx("TestResponseParser", "test")
+ 
+            
+        project "librime-test"          
+            kind "ConsoleApp"
+            defines { "RIME_IMPORTS" }
+            vpaths 
+            { 
+                ["Header Files"] = {"**.h", "**.hpp"},
+                ["Source Files"] = {"**.c", "**.cpp", "**.cc"},
+                ["Resource Files"] = {"**.rc", "**.rc2"}
+            }
+            files
+            {              
+                
+                "librime/test/**.h",
+                "librime/test/**.cc",
+                
+                
+                
+                
+            }
+            removefiles
+            {     
+            
+            }
+            includedirs
+            {               
+                "librime/thirdparty/src/gtest/include",
+                "librime/thirdparty/include",
+                "librime/thirdparty/src/opencc/deps/darts-clone",
+                "librime/src",
+                
+            }  
+            links
+            {
+                
+                "gtest",
+                "rime.lib",
+                
+               
+                
+            }
+           
+--        project "rime_console"          
+--            kind "ConsoleApp"
+--            defines { "RIME_IMPORTS" }
+--            vpaths 
+--            { 
+--                ["Header Files"] = {"**.h", "**.hpp"},
+--                ["Source Files"] = {"**.c", "**.cpp", "**.cc"},
+--                ["Resource Files"] = {"**.rc", "**.rc2"}
+--            }
+--            files
+--            {              
+--                
+--                "librime/tools/rime_console.cc",
+--                
+--                
+--                
+--                
+--                
+--            }
+--            removefiles
+--            {     
+--            
+--            }
+--            includedirs
+--            {               
+--                
+--                "librime/thirdparty/include",               
+--                "librime/src",
+--                
+--            }  
+--            links
+--            {
+--                
+--               
+--                "rime.lib",
+--                
+--               
+--                
+--            }
 
     group "服务端"
 
