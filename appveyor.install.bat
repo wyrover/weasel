@@ -7,12 +7,11 @@ if not exist %BOOST_ROOT% set nocache=1
 
 git submodule init
 git submodule update brise
-rem Temporary workaround
-appveyor DownloadFile https://ci.appveyor.com/api/buildjobs/6f7om20ea95w2fmy/artifacts/rime.zip
+rem librime 1.2.10
+appveyor DownloadFile https://ci.appveyor.com/api/buildjobs/a952q4qoye3ebufj/artifacts/rime.zip
 7z x rime.zip * -olibrime\ | find "ing archive"
 copy /Y librime\build\include\rime_*.h include\
 copy /Y librime\build\lib\Release\rime.dll output\
-ren weasel-appveyor.props weasel.props
 
 if %nocache% == 1 (
 	pushd C:\Libraries
