@@ -4,6 +4,7 @@
 #include "stdafx.h"
 #include <WeaselIPC.h>
 #include <RimeWithWeasel.h>
+#include <ShellAPI.h>
 
 #include <boost/interprocess/streams/bufferstream.hpp>
 using namespace boost::interprocess;

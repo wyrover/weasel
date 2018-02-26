@@ -4,11 +4,11 @@
 
 namespace weasel
 {
-	class HorizontalLayout: public StandardLayout
-	{
-	public:
-		HorizontalLayout(const UIStyle &style, const Context &context, const Status &status);
+class HorizontalLayout: public StandardLayout
+{
+public:
+    HorizontalLayout(const UIStyle &style, const Context &context, const Status &status);
 
-		virtual void DoLayout(CDCHandle dc);
-	};
+    virtual void DoLayout(CDCHandle dc);
+};
 };

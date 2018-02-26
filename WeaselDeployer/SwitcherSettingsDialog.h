@@ -3,36 +3,37 @@
 #include "resource.h"
 #include <rime_levers_api.h>
 
-class SwitcherSettingsDialog : public CDialogImpl<SwitcherSettingsDialog> {
+class SwitcherSettingsDialog : public CDialogImpl<SwitcherSettingsDialog>
+{
 public:
-	enum { IDD = IDD_SWITCHER_SETTING };
+    enum { IDD = IDD_SWITCHER_SETTING };
 
-	SwitcherSettingsDialog(RimeSwitcherSettings* settings);
-	~SwitcherSettingsDialog();
+    SwitcherSettingsDialog(RimeSwitcherSettings* settings);
+    ~SwitcherSettingsDialog();
 
 protected:
-	BEGIN_MSG_MAP(SwitcherSettingsDialog)
-		MESSAGE_HANDLER(WM_INITDIALOG, OnInitDialog)
-		MESSAGE_HANDLER(WM_CLOSE, OnClose)
-		COMMAND_ID_HANDLER(IDOK, OnOK)
-		NOTIFY_HANDLER(IDC_SCHEMA_LIST, LVN_ITEMCHANGED, OnSchemaListItemChanged)
-	END_MSG_MAP()
+    BEGIN_MSG_MAP(SwitcherSettingsDialog)
+    MESSAGE_HANDLER(WM_INITDIALOG, OnInitDialog)
+    MESSAGE_HANDLER(WM_CLOSE, OnClose)
+    COMMAND_ID_HANDLER(IDOK, OnOK)
+    NOTIFY_HANDLER(IDC_SCHEMA_LIST, LVN_ITEMCHANGED, OnSchemaListItemChanged)
+    END_MSG_MAP()
 
-	LRESULT OnInitDialog(UINT, WPARAM, LPARAM, BOOL&);
-	LRESULT OnClose(UINT, WPARAM, LPARAM, BOOL&);
-	LRESULT OnOK(WORD, WORD code, HWND, BOOL&);
-	LRESULT OnSchemaListItemChanged(int, LPNMHDR, BOOL&);
+    LRESULT OnInitDialog(UINT, WPARAM, LPARAM, BOOL&);
+    LRESULT OnClose(UINT, WPARAM, LPARAM, BOOL&);
+    LRESULT OnOK(WORD, WORD code, HWND, BOOL&);
+    LRESULT OnSchemaListItemChanged(int, LPNMHDR, BOOL&);
 
-	void Populate();
-	void ShowDetails(RimeSchemaInfo* info);
+    void Populate();
+    void ShowDetails(RimeSchemaInfo* info);
 
-	RimeLeversApi* api_;
-	RimeSwitcherSettings* settings_;
-	bool loaded_;
-	bool modified_;
+    RimeLeversApi* api_;
+    RimeSwitcherSettings* settings_;
+    bool loaded_;
+    bool modified_;
 
-	CCheckListViewCtrl schema_list_;
-	CStatic description_;
-	CEdit hotkeys_; 
+    CCheckListViewCtrl schema_list_;
+    CStatic description_;
+    CEdit hotkeys_;
 };
 

@@ -4,121 +4,122 @@
 #include "WeaselIPC.h"
 
 class WeaselTSF:
-	public ITfTextInputProcessor,
-	public ITfThreadMgrEventSink,
-	public ITfTextEditSink,
-	public ITfTextLayoutSink,
-	public ITfKeyEventSink,
-	public ITfCompositionSink,
-	public ITfEditSession
+    public ITfTextInputProcessor,
+    public ITfThreadMgrEventSink,
+    public ITfTextEditSink,
+    public ITfTextLayoutSink,
+    public ITfKeyEventSink,
+    public ITfCompositionSink,
+    public ITfEditSession
 {
 public:
-	WeaselTSF();
-	~WeaselTSF();
+    WeaselTSF();
+    ~WeaselTSF();
 
-	/* IUnknown */
-	STDMETHODIMP QueryInterface(REFIID riid, void **ppvObject);
-	STDMETHODIMP_(ULONG) AddRef();
-	STDMETHODIMP_(ULONG) Release();
+    /* IUnknown */
+    STDMETHODIMP QueryInterface(REFIID riid, void **ppvObject);
+    STDMETHODIMP_(ULONG) AddRef();
+    STDMETHODIMP_(ULONG) Release();
 
-	/* ITfTextInputProcessor */
-	STDMETHODIMP Activate(ITfThreadMgr *pThreadMgr, TfClientId tfClientId);
-	STDMETHODIMP Deactivate();
+    /* ITfTextInputProcessor */
+    STDMETHODIMP Activate(ITfThreadMgr *pThreadMgr, TfClientId tfClientId);
+    STDMETHODIMP Deactivate();
 
-	/* ITfThreadMgrEventSink */
-	STDMETHODIMP OnInitDocumentMgr(ITfDocumentMgr *pDocMgr);
-	STDMETHODIMP OnUninitDocumentMgr(ITfDocumentMgr *pDocMgr);
-	STDMETHODIMP OnSetFocus(ITfDocumentMgr *pDocMgrFocus, ITfDocumentMgr *pDocMgrPrevFocus);
-	STDMETHODIMP OnPushContext(ITfContext *pContext);
-	STDMETHODIMP OnPopContext(ITfContext *pContext);
+    /* ITfThreadMgrEventSink */
+    STDMETHODIMP OnInitDocumentMgr(ITfDocumentMgr *pDocMgr);
+    STDMETHODIMP OnUninitDocumentMgr(ITfDocumentMgr *pDocMgr);
+    STDMETHODIMP OnSetFocus(ITfDocumentMgr *pDocMgrFocus, ITfDocumentMgr *pDocMgrPrevFocus);
+    STDMETHODIMP OnPushContext(ITfContext *pContext);
+    STDMETHODIMP OnPopContext(ITfContext *pContext);
 
-	/* ITfTextEditSink */
-	STDMETHODIMP OnEndEdit(ITfContext *pic, TfEditCookie ecReadOnly, ITfEditRecord *pEditRecord);
+    /* ITfTextEditSink */
+    STDMETHODIMP OnEndEdit(ITfContext *pic, TfEditCookie ecReadOnly, ITfEditRecord *pEditRecord);
 
-	/* ITfTextLayoutSink */
-	STDMETHODIMP OnLayoutChange(ITfContext *pContext, TfLayoutCode lcode, ITfContextView *pContextView);
+    /* ITfTextLayoutSink */
+    STDMETHODIMP OnLayoutChange(ITfContext *pContext, TfLayoutCode lcode, ITfContextView *pContextView);
 
-	/* ITfKeyEventSink */
-	STDMETHODIMP OnSetFocus(BOOL fForeground);
-	STDMETHODIMP OnTestKeyDown(ITfContext *pContext, WPARAM wParam, LPARAM lParam, BOOL *pfEaten);
-	STDMETHODIMP OnKeyDown(ITfContext *pContext, WPARAM wParam, LPARAM lParam, BOOL *pfEaten);
-	STDMETHODIMP OnTestKeyUp(ITfContext *pContext, WPARAM wParam, LPARAM lParam, BOOL *pfEaten);
-	STDMETHODIMP OnKeyUp(ITfContext *pContext, WPARAM wParm, LPARAM lParam, BOOL *pfEaten);
-	STDMETHODIMP OnPreservedKey(ITfContext *pContext, REFGUID rguid, BOOL *pfEaten);
+    /* ITfKeyEventSink */
+    STDMETHODIMP OnSetFocus(BOOL fForeground);
+    STDMETHODIMP OnTestKeyDown(ITfContext *pContext, WPARAM wParam, LPARAM lParam, BOOL *pfEaten);
+    STDMETHODIMP OnKeyDown(ITfContext *pContext, WPARAM wParam, LPARAM lParam, BOOL *pfEaten);
+    STDMETHODIMP OnTestKeyUp(ITfContext *pContext, WPARAM wParam, LPARAM lParam, BOOL *pfEaten);
+    STDMETHODIMP OnKeyUp(ITfContext *pContext, WPARAM wParm, LPARAM lParam, BOOL *pfEaten);
+    STDMETHODIMP OnPreservedKey(ITfContext *pContext, REFGUID rguid, BOOL *pfEaten);
 
-	/* ITfCompositionSink */
-	STDMETHODIMP OnCompositionTerminated(TfEditCookie ecWrite, ITfComposition *pComposition);
+    /* ITfCompositionSink */
+    STDMETHODIMP OnCompositionTerminated(TfEditCookie ecWrite, ITfComposition *pComposition);
 
-	/* ITfEditSession */
-	STDMETHODIMP DoEditSession(TfEditCookie ec);
-	
-	/* Compartments */
+    /* ITfEditSession */
+    STDMETHODIMP DoEditSession(TfEditCookie ec);
+
+    /* Compartments */
     BOOL _IsKeyboardDisabled();
     BOOL _IsKeyboardOpen();
     HRESULT _SetKeyboardOpen(BOOL fOpen);
 
-	/* Composition */
-	void _StartComposition(ITfContext *pContext, BOOL fCUASWorkaroundEnabled);
-	void _EndComposition(ITfContext *pContext);
-	BOOL _ShowInlinePreedit(ITfContext *pContext, const std::shared_ptr<weasel::Context> context);
-	void _UpdateComposition(ITfContext *pContext);
-	BOOL _IsComposing();
-	void _SetComposition(ITfComposition *pComposition);
-	void _SetCompositionPosition(const RECT &rc);
-	BOOL _UpdateCompositionWindow(ITfContext *pContext);
+    /* Composition */
+    void _StartComposition(ITfContext *pContext, BOOL fCUASWorkaroundEnabled);
+    void _EndComposition(ITfContext *pContext);
+    BOOL _ShowInlinePreedit(ITfContext *pContext, const std::shared_ptr<weasel::Context> context);
+    void _UpdateComposition(ITfContext *pContext);
+    BOOL _IsComposing();
+    void _SetComposition(ITfComposition *pComposition);
+    void _SetCompositionPosition(const RECT &rc);
+    BOOL _UpdateCompositionWindow(ITfContext *pContext);
 
-	/* Language bar */
-	HWND _GetFocusedContextWindow();
-	void _HandleLangBarMenuSelect(UINT wID);
+    /* Language bar */
+    HWND _GetFocusedContextWindow();
+    void _HandleLangBarMenuSelect(UINT wID);
 
-	/* IPC */
-	void _EnsureServerConnected();
+    /* IPC */
+    void _EnsureServerConnected();
 
 private:
-	/* TSF Related */
-	BOOL _InitThreadMgrEventSink();
-	void _UninitThreadMgrEventSink();
+    /* TSF Related */
+    BOOL _InitThreadMgrEventSink();
+    void _UninitThreadMgrEventSink();
 
-	BOOL _InitTextEditSink(ITfDocumentMgr *pDocMgr);
+    BOOL _InitTextEditSink(ITfDocumentMgr *pDocMgr);
 
-	BOOL _InitKeyEventSink();
-	void _UninitKeyEventSink();
-	void _ProcessKeyEvent(WPARAM wParam, LPARAM lParam, BOOL *pfEaten);
+    BOOL _InitKeyEventSink();
+    void _UninitKeyEventSink();
+    void _ProcessKeyEvent(WPARAM wParam, LPARAM lParam, BOOL *pfEaten);
 
-	BOOL _InitPreservedKey();
-	void _UninitPreservedKey();
+    BOOL _InitPreservedKey();
+    void _UninitPreservedKey();
 
-	BOOL _InitLanguageBar();
-	void _UninitLanguageBar();
-	
-	BOOL _InsertText(ITfContext *pContext, const std::wstring& ext);
+    BOOL _InitLanguageBar();
+    void _UninitLanguageBar();
 
-	bool isImmersive() const {
-		return (_activateFlags & TF_TMF_IMMERSIVEMODE) != 0;
-	}
+    BOOL _InsertText(ITfContext *pContext, const std::wstring& ext);
 
-	ITfThreadMgr *_pThreadMgr;
-	TfClientId _tfClientId;
-	DWORD _dwThreadMgrEventSinkCookie;
+    bool isImmersive() const
+    {
+        return (_activateFlags & TF_TMF_IMMERSIVEMODE) != 0;
+    }
 
-	ITfContext *_pTextEditSinkContext;
-	DWORD _dwTextEditSinkCookie, _dwTextLayoutSinkCookie;
-	BYTE _lpbKeyState[256];
-	BOOL _fTestKeyDownPending, _fTestKeyUpPending;
+    ITfThreadMgr *_pThreadMgr;
+    TfClientId _tfClientId;
+    DWORD _dwThreadMgrEventSinkCookie;
 
-	ITfContext *_pEditSessionContext;
-	std::wstring _editSessionText;
+    ITfContext *_pTextEditSinkContext;
+    DWORD _dwTextEditSinkCookie, _dwTextLayoutSinkCookie;
+    BYTE _lpbKeyState[256];
+    BOOL _fTestKeyDownPending, _fTestKeyUpPending;
 
-	ITfComposition *_pComposition;
+    ITfContext *_pEditSessionContext;
+    std::wstring _editSessionText;
 
-	ITfLangBarItemButton *_pLangBarButton;
+    ITfComposition *_pComposition;
 
-	LONG _cRef;	// COM ref count
+    ITfLangBarItemButton *_pLangBarButton;
 
-	/* CUAS Candidate Window Position Workaround */
-	BOOL _fCUASWorkaroundTested, _fCUASWorkaroundEnabled;
+    LONG _cRef; // COM ref count
 
-	/* Weasel Related */
-	weasel::Client m_client;
-	DWORD _activateFlags;
+    /* CUAS Candidate Window Position Workaround */
+    BOOL _fCUASWorkaroundTested, _fCUASWorkaroundEnabled;
+
+    /* Weasel Related */
+    weasel::Client m_client;
+    DWORD _activateFlags;
 };

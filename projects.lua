@@ -546,7 +546,7 @@ workspace(path.getname(os.realpath(".")))
             kind "SharedLib"
             defines { 
                 "RIME_VERSION=\"1.2.9\"", 
-                "RIME_ENABLE_LOGGING",
+                --"RIME_ENABLE_LOGGING",
                 "GOOGLE_GLOG_DLL_DECL=",
                 "Opencc_BUILT_AS_STATIC",
                 "BOOST_SIGNALS2",
@@ -633,7 +633,7 @@ workspace(path.getname(os.realpath(".")))
 
         project "libglog"          
             kind "StaticLib" 
-            defines { "GOOGLE_GLOG_DLL_DECL=", "HAVE_SNPRINTF" }
+            defines { "HAVE_SNPRINTF", "GOOGLE_GLOG_DLL_DECL=", "GLOG_NO_ABBREVIATED_SEVERITIES" }
             vpaths 
             { 
                 ["Header Files"] = {"**.h", "**.hpp"},
@@ -642,28 +642,40 @@ workspace(path.getname(os.realpath(".")))
             }
             files
             {              
+
+            
                 
-                "librime/thirdparty/src/glog/src/**.h",
-                "librime/thirdparty/src/glog/src/**logging.cc",
-                "librime/thirdparty/src/glog/src/**port.cc",
-                "librime/thirdparty/src/glog/src/**raw_logging.cc",
-                "librime/thirdparty/src/glog/src/**utilities.cc",
-                "librime/thirdparty/src/glog/src/**vlog_is_on.cc",
+                "librime/thirdparty/src/glog-master/vc/glog/logging.h",
+                "librime/thirdparty/src/glog-master/vc/glog/raw_logging.h",
+                "librime/thirdparty/src/glog-master/vc/glog/stl_logging.h",
+                "librime/thirdparty/src/glog-master/vc/glog/vlog_is_on.h",
+                "librime/thirdparty/src/glog-master/src/glog/log_severity.h",
+                "librime/thirdparty/src/glog-master/src/base/commandlineflags.h",
+                "librime/thirdparty/src/glog-master/src/base/googleinit.h",
+                "librime/thirdparty/src/glog-master/src/base/mutex.h",
+                "librime/thirdparty/src/glog-master/src/demangle.h",
+                "librime/thirdparty/src/glog-master/src/symbolize.h",
+                "librime/thirdparty/src/glog-master/src/utilities.h",
+                "librime/thirdparty/src/glog-master/src/windows/port.h",
+                "librime/thirdparty/src/glog-master/src/demangle.cc",
+                "librime/thirdparty/src/glog-master/src/logging.cc",
+                "librime/thirdparty/src/glog-master/src/raw_logging.cc",
+                "librime/thirdparty/src/glog-master/src/symbolize.cc",
+                "librime/thirdparty/src/glog-master/src/utilities.cc",
+                "librime/thirdparty/src/glog-master/src/vlog_is_on.cc",
+                "librime/thirdparty/src/glog-master/src/signalhandler.cc",
+                "librime/thirdparty/src/glog-master/src/windows/port.cc",
                 
                 
                 
             }
             removefiles
             {     
---                "**_test.cc",
---                "**db_bench**.cc",
---                "**env_posix.cc",
---                "**port_android.cc",
---                "**port_posix.cc",
+               
             }
             includedirs
             {               
-                "librime/thirdparty/src/glog/src/windows",
+                "librime/thirdparty/src/glog-master/src/windows",
                 
                 
             }  

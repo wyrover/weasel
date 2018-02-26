@@ -168,27 +168,29 @@ configurations { "Debug", "Release", "Debug_MT", "Release_MT", "TRACE", "TRACE_M
 
     filter "configurations:Debug"
         defines { "DEBUG" }
-        flags { "Symbols" }        
+        symbols "On"                
 
     filter { "configurations:Debug_MT" }
-        defines { "DEBUG" }       
-        flags { "Symbols", "StaticRuntime", "NoManifest" } 
+        defines { "DEBUG" }    
+        symbols "On"
+        flags { "StaticRuntime", "NoManifest" } 
 
     filter "configurations:Release"
         defines { "NDEBUG" }
-        flags { "Symbols" }
+        symbols "On"
         optimize "Speed"  
         --buildoptions { "/Od" } 
 
     filter "configurations:Release_MT"
         defines { "NDEBUG" }
-        flags { "Symbols", "StaticRuntime", "NoManifest" }
+        symbols "On"
+        flags { "StaticRuntime", "NoManifest" }
         optimize "Speed"  
         --buildoptions { "/Od" } 
     
     filter "configurations:TRACE"
         defines { "NDEBUG", "TRACE_TOOL" }
-        flags { "Symbols" }
+        symbols "On"
         optimize "Speed"  
         buildoptions { "/Od" } 
         includedirs
@@ -201,7 +203,8 @@ configurations { "Debug", "Release", "Debug_MT", "Release_MT", "TRACE", "TRACE_M
 
     filter "configurations:TRACE_MT"
         defines { "NDEBUG", "TRACE_TOOL" }
-        flags { "Symbols", "StaticRuntime", "NoManifest" }
+        symbols "On"
+        flags { "StaticRuntime", "NoManifest" }
         optimize "On"  
         buildoptions { "/Od" }  
         includedirs
